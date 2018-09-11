@@ -9,10 +9,11 @@ import matplotlib.pyplot as plt
 ## load mnist dataset
 use_cuda = torch.cuda.is_available()
 
+
 def trainingLoop(net, train_loader, epochs, batch_size, log_interval, learning_rate, test_loader, mask, if_prune):
     optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=0)
-    criterion = nn.CrossEntropyLoss()
-
+    # criterion = nn.CrossEntropyLoss()
+    criterion = nn.NLLLoss()
     xAxis = []
     yAxis = []
     timesPerEpoch = len(train_loader.dataset) / batch_size
@@ -23,8 +24,8 @@ def trainingLoop(net, train_loader, epochs, batch_size, log_interval, learning_r
         timeInEpoch = 1
         for batch_idx, (x, target) in enumerate(train_loader):
             optimizer.zero_grad()
-            # if use_cuda:
-            #     x, target = x.cuda(), target.cuda()
+            if use_cuda:
+                x, target = x.cuda(), target.cuda()
             x, target = Variable(x), Variable(target)
             out = net(x)
             loss = criterion(out, target)
@@ -58,8 +59,8 @@ def trainingLoop(net, train_loader, epochs, batch_size, log_interval, learning_r
                 correct = 0
                 test = 0
                 for data, target in test_loader:
-                    # if use_cuda:
-                    #     data, target = data.cuda(), target.cuda()
+                    if use_cuda:
+                        data, target = data.cuda(), target.cuda()
                     with torch.no_grad():
                         data, target = Variable(data), Variable(target)
                     net_out = net(data)
