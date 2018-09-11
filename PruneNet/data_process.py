@@ -62,8 +62,6 @@ if __name__ == "__main__":
 
     plt.plot(x, y)
     plt.axis([0, 30000, 0.8, 0.93])
-
-
     plt.show()
 
 
