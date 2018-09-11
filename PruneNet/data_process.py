@@ -52,5 +52,17 @@ if __name__ == "__main__":
     fc_plt(60, 5, percents, 'oneShot')
 
 
+if __name__ == "__main__":
+    percents = [100, 0.9, 0.75, 0.351]
+    # test_ply(30, percents, 'oneShot', 'no_absolute_Datum/')
+    # fcn_plt(60, 5, percents, 'oneShot', '')
+    x = np.load('Conv_2_Datum/x_conv2-100_fc-100_iter-0_0.npy')
+    y = np.load('Conv_2_Datum/y_conv2-100_fc-100_iter-0_0.npy')
+    print(x)
+
+    plt.plot(x, y)
+    plt.axis([0, 30000, 0.8, 0.93])
+    plt.show()
+
 
 
